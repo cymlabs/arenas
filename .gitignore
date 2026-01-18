@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+pnpm-debug.log*
+>>>>>>> 3f79c0b597c8876d28da63395d5deb061f6818f9
