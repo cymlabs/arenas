@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { MainNavigation } from '@/components/layout/MainNavigation';
+import { PageHeader, SectionHeader } from '@/components/ui/PremiumComponents';
 import { GlowingCard, AceternityCard, StatCard } from '@/components/ui/GlowingCard';
 import { CLUSTER_TAXONOMY, ClusterType, CLUSTER_TYPE_COLORS } from '@/types/clusters';
 
@@ -106,25 +108,12 @@ export default function VoiceProfilePage({ voiceId }: VoiceProfilePageProps) {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white">
-            {/* Header */}
-            <header className="border-b border-white/[0.06] bg-black/80 backdrop-blur-sm sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <span className="text-blue-400 text-xl">◉</span>
-                        <span className="font-semibold">CULTURE MINDS <span className="text-blue-400">360</span></span>
-                    </div>
-                    <nav className="flex items-center gap-6 text-sm text-white/50">
-                        <a href="/dashboard" className="hover:text-white transition-colors">Dashboard</a>
-                        <a href="#" className="text-white">Profiles</a>
-                        <a href="#" className="hover:text-white transition-colors">Topics</a>
-                        <a href="#" className="hover:text-white transition-colors">Clusters</a>
-                    </nav>
-                </div>
-            </header>
+        <div className="min-h-screen premium-grid-bg text-white">
+            <div className="animated-gradient-mesh" />
+            <MainNavigation />
 
             {/* Profile Hero */}
-            <section className="relative">
+            <section className="relative pt-24">
                 {/* Gradient backdrop */}
                 <div
                     className="absolute inset-0 opacity-20"
@@ -258,8 +247,8 @@ export default function VoiceProfilePage({ voiceId }: VoiceProfilePageProps) {
                                             <div className="flex items-center justify-between mb-2">
                                                 <span className="font-medium">{topic.name}</span>
                                                 <span className={`text-xs px-2 py-0.5 rounded-full ${topic.sentiment > 0 ? 'bg-green-500/20 text-green-400' :
-                                                        topic.sentiment < -0.3 ? 'bg-red-500/20 text-red-400' :
-                                                            'bg-yellow-500/20 text-yellow-400'
+                                                    topic.sentiment < -0.3 ? 'bg-red-500/20 text-red-400' :
+                                                        'bg-yellow-500/20 text-yellow-400'
                                                     }`}>
                                                     {topic.sentiment > 0 ? 'Positive' : topic.sentiment < -0.3 ? 'Negative' : 'Mixed'}
                                                 </span>

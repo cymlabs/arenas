@@ -95,18 +95,18 @@ export function HolographicMap({
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Background gradient
+            // Background gradient - slightly brighter for visibility
             const bgGrad = ctx.createRadialGradient(
                 canvas.width / 2, canvas.height / 2, 0,
                 canvas.width / 2, canvas.height / 2, canvas.width / 1.5
             );
-            bgGrad.addColorStop(0, 'rgba(20, 25, 35, 0.8)');
-            bgGrad.addColorStop(1, 'rgba(5, 8, 15, 0.95)');
+            bgGrad.addColorStop(0, 'rgba(25, 35, 50, 0.9)');
+            bgGrad.addColorStop(1, 'rgba(10, 15, 25, 0.95)');
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw grid lines (longitude)
-            ctx.strokeStyle = 'rgba(100, 150, 200, 0.06)';
+            // Draw grid lines (longitude) - brighter
+            ctx.strokeStyle = 'rgba(100, 150, 200, 0.12)';
             ctx.lineWidth = 1;
             for (let lng = -180; lng <= 180; lng += 30) {
                 const { x } = latLngToXY(0, lng);

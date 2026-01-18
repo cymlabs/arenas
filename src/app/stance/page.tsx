@@ -15,6 +15,7 @@ import { useStanceStore } from '@/lib/stanceStore';
 import { VoiceStanceCard, VoiceCompareView, TopicRadarView } from '@/components/stance';
 import GlobeViz from '@/components/visualizations/GlobeViz';
 import { MainNavigation } from '@/components/layout/MainNavigation';
+import { PageHeader } from '@/components/ui/PremiumComponents';
 
 export default function StanceDemoPage() {
     const [mounted, setMounted] = useState(false);
@@ -66,17 +67,14 @@ export default function StanceDemoPage() {
             <MainNavigation />
 
             <main className="pt-24 px-6 pb-24 max-w-7xl mx-auto space-y-12">
-                {/* Header Section */}
-                <header className="text-center space-y-4">
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-                        <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                            Stance × Mindshare
-                        </span> Engine
-                    </h1>
-                    <p className="text-lg text-white/50 max-w-2xl mx-auto">
-                        Global intelligence platform tracking voice stances, stance flips, and attention shifts in real-time.
-                    </p>
-                </header>
+                <PageHeader
+                    title="Stance × Mindshare Engine"
+                    description="Global intelligence platform tracking voice stances, stance flips, and attention shifts in real-time."
+                    breadcrumbs={[
+                        { label: 'Dashboard', href: '/dashboard' },
+                        { label: 'Stance Engine' }
+                    ]}
+                />
 
                 {/* Premium Globe Visualization - Front and Center */}
                 <section className="relative rounded-3xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm shadow-2xl">

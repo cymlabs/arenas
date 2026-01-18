@@ -93,17 +93,30 @@ export default function GlobeViz({
     const globeEl = useRef<any>(null);
     const { voices, getStanceRingData } = useStanceStore();
     const [mounted, setMounted] = useState(false);
+    const [webglSupported, setWebglSupported] = useState(true);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Check WebGL support
+    useEffect(() => {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            setWebglSupported(!!gl);
+        } catch {
+            setWebglSupported(false);
+        }
+        setMounted(true);
+    }, []);
+
 
     useEffect(() => {
-        setMounted(true);
-
         // Auto-rotate
-        if (globeEl.current) {
+        if (globeEl.current && webglSupported) {
             globeEl.current.controls().autoRotate = true;
             globeEl.current.controls().autoRotateSpeed = 0.5;
             globeEl.current.pointOfView({ lat: 20, lng: 0, altitude: 2.5 });
         }
-    }, []);
+    }, [webglSupported]);
 
     // Prepare data for the globe
     const globeData = useMemo(() => {
@@ -141,10 +154,53 @@ export default function GlobeViz({
         });
     }, [voices, getStanceRingData, externalMarkers, onVoiceClick]);
 
-    if (!mounted) return <div style={{ width, height }} className="bg-black/90 flex items-center justify-center text-white/50">Loading Globe...</div>;
+    if (!mounted) return <div style={{ width: '100%', height: 400 }} className="bg-black/90 flex items-center justify-center text-white/50">Initializing Globe...</div>;
+
+    // 2D Fallback when WebGL is not available
+    if (!webglSupported) {
+        return (
+            <div ref={containerRef} className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl bg-gradient-to-br from-slate-900 to-black" style={{ minHeight: 400 }}>
+                <div className="absolute top-4 left-4 z-10 pointer-events-none">
+                    <div className="px-3 py-1.5 rounded-lg bg-amber-500/20 backdrop-blur border border-amber-500/30 text-xs text-amber-400">
+                        <span className="font-bold">2D MODE</span> - WebGL unavailable
+                    </div>
+                </div>
+                <div className="p-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {globeData.slice(0, 12).map((point) => (
+                            <button
+                                key={point.id}
+                                onClick={() => point.onClick ? point.onClick() : onVoiceClick?.(point.id)}
+                                className="group p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-white/20 hover:bg-white/[0.06] transition-all"
+                            >
+                                <div
+                                    className="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold"
+                                    style={{ backgroundColor: point.color + '40', borderColor: point.color, borderWidth: 2 }}
+                                >
+                                    {point.name?.charAt(0) || '?'}
+                                </div>
+                                <p className="text-xs text-white/70 text-center truncate group-hover:text-white transition-colors">
+                                    {point.name}
+                                </p>
+                                {'city' in point && point.city && (
+                                    <p className="text-[10px] text-white/40 text-center">{point.city}</p>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                    {globeData.length === 0 && (
+                        <div className="text-center py-12 text-white/40">
+                            <p className="text-lg mb-2">No data points available</p>
+                            <p className="text-sm">Add voices or markers to visualize</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl bg-black">
+        <div ref={containerRef} className="relative rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl bg-black" style={{ minHeight: 400 }}>
             <div className="absolute top-4 left-4 z-10 pointer-events-none">
                 <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur border border-white/10 text-xs text-white/70">
                     <span className="font-bold text-white">LIVE</span> STANCE MONITOR

@@ -15,6 +15,7 @@ import { TopicDetailModal } from '@/components/dashboard/TopicDetailModal';
 import { MainNavigation } from '@/components/layout/MainNavigation';
 import { FixedBottomNav } from '@/components/ui/PremiumComponents';
 import { DataTable } from '@/components/dashboard/DataTable';
+import { IntelligenceFeed } from '@/components/intelligence/IntelligenceFeed';
 import dynamic from 'next/dynamic';
 
 const AttentionFlowScene = dynamic(() => import('@/components/visualizations/3d/AttentionFlowScene'), { ssr: false });
@@ -623,10 +624,15 @@ export default function Dashboard() {
 
           {/* Right Column - Lists */}
           <div className="col-span-12 lg:col-span-3 space-y-4">
+            {/* Intelligence Feed - Core "who said what" component */}
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+              <IntelligenceFeed maxItems={4} compact />
+            </div>
+
             <RankedList
               title="Trending Topics"
               items={rankedTopics}
-              maxItems={6}
+              maxItems={5}
               onItemClick={(item) => {
                 const topic = topicsData.find(t => t.id === item.id);
                 if (topic) setDetailTopic(topic);
@@ -636,10 +642,10 @@ export default function Dashboard() {
             <RankedList
               title="Top Voices"
               items={voicesData}
-              maxItems={5}
+              maxItems={4}
             />
 
-            <ActivityFeed events={events} maxEvents={8} />
+            <ActivityFeed events={events} maxEvents={4} />
           </div>
         </div>
       </div>

@@ -164,7 +164,7 @@ export default function LandingPage() {
                             </Link>
                             <Link
                                 href="/stance"
-                                className="px-8 py-4 rounded-full border border-white/20 text-white font-medium hover:bg-white/5 transition-all backdrop-blur-sm"
+                                className="px-8 py-4 rounded-full border border-violet-500/30 text-white font-medium bg-gradient-to-r from-violet-500/10 to-blue-500/10 hover:from-violet-500/20 hover:to-blue-500/20 transition-all backdrop-blur-sm shadow-lg shadow-violet-500/10 hover:shadow-violet-500/20"
                             >
                                 Explore Stance Engine
                             </Link>
@@ -176,10 +176,16 @@ export default function LandingPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.5, duration: 1 }}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30"
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
                     >
-                        <span className="text-[10px] uppercase tracking-widest">Scroll to Discover</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
+                        <span className="text-xs uppercase tracking-widest text-white/50 bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">Scroll to Discover</span>
+                        <motion.div
+                            className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2"
+                            animate={{ y: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                            <div className="w-1 h-2 bg-white/50 rounded-full" />
+                        </motion.div>
                     </motion.div>
                 </motion.section>
 

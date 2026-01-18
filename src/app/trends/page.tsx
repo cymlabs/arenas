@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { MainNavigation } from '@/components/layout/MainNavigation';
+import { PageHeader, SectionHeader } from '@/components/ui/PremiumComponents';
 import type { GlobePoint } from '@/components/visualizations/HolographicGlobe';
 import {
     RedditIcon,
@@ -167,27 +168,22 @@ export default function TrendsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen premium-grid-bg">
+            <div className="animated-gradient-mesh" />
             <MainNavigation />
 
             <main className="pt-24 px-4 pb-20 max-w-7xl mx-auto">
-                {/* Header */}
-                <div className="mb-8">
-                    <nav className="flex items-center gap-2 text-sm text-white/40 mb-4">
-                        <button onClick={() => router.push('/dashboard')} className="hover:text-white/60 transition-colors">
-                            Dashboard
-                        </button>
-                        <span>/</span>
-                        <span className="text-white/60">Live Intelligence</span>
-                    </nav>
-                    <h1 className="text-3xl font-bold text-white mb-2">Live Intelligence Feed</h1>
-                    <p className="text-white/50">
-                        {data?.stats
-                            ? `Aggregating ${data.stats.totalItems} items from ${data.stats.totalPlatforms} platforms`
-                            : 'Real-time cultural intelligence from across the web'
-                        }
-                    </p>
-                </div>
+                <PageHeader
+                    title="Live Intelligence Feed"
+                    description={data?.stats
+                        ? `Aggregating ${data.stats.totalItems} items from ${data.stats.totalPlatforms} platforms`
+                        : 'Real-time cultural intelligence from across the web'
+                    }
+                    breadcrumbs={[
+                        { label: 'Dashboard', href: '/dashboard' },
+                        { label: 'Live Intelligence' }
+                    ]}
+                />
 
                 {/* Platform Status Bar */}
                 <motion.section
@@ -211,8 +207,8 @@ export default function TrendsPage() {
                                         key={platform}
                                         onClick={() => togglePlatform(platform)}
                                         className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${selectedPlatforms.length === 0 || selectedPlatforms.includes(platform)
-                                                ? 'bg-white/10 text-white border border-white/20'
-                                                : 'bg-white/5 text-white/40 border border-white/5'
+                                            ? 'bg-white/10 text-white border border-white/20'
+                                            : 'bg-white/5 text-white/40 border border-white/5'
                                             }`}
                                         style={{
                                             borderColor: selectedPlatforms.includes(platform)
@@ -332,7 +328,7 @@ export default function TrendsPage() {
                                                             {item.engagement.toLocaleString()}
                                                         </span>
                                                         <span className={`flex items-center gap-1 ${item.sentiment > 0.1 ? 'text-green-400' :
-                                                                item.sentiment < -0.1 ? 'text-red-400' : ''
+                                                            item.sentiment < -0.1 ? 'text-red-400' : ''
                                                             }`}>
                                                             {item.sentiment > 0.1 ? <TrendingUpIcon size={12} /> :
                                                                 item.sentiment < -0.1 ? <TrendingDownIcon size={12} /> : null}
@@ -433,7 +429,7 @@ export default function TrendsPage() {
                                                     </div>
                                                 </div>
                                                 <div className={`text-sm font-mono ${stats.avgSentiment > 0.1 ? 'text-green-400' :
-                                                        stats.avgSentiment < -0.1 ? 'text-red-400' : 'text-white/50'
+                                                    stats.avgSentiment < -0.1 ? 'text-red-400' : 'text-white/50'
                                                     }`}>
                                                     {stats.avgSentiment > 0 ? '+' : ''}{stats.avgSentiment.toFixed(2)}
                                                 </div>

@@ -77,7 +77,7 @@ export default function AttentionFlowScene({ nodes = DEFAULT_NODES, flows = DEFA
                         <p className="text-white/70 text-sm mb-4 leading-relaxed">{hoveredData.desc}</p>
 
                         <div className="flex justify-between items-center text-xs border-t border-white/10 pt-3 text-white/50">
-                            <span>Economic Impact</span>
+                            <span>Mindshare Impact</span>
                             <span className="text-cyan-400 font-bold text-base">
                                 {hoveredData.value > 7 ? 'Critical' : hoveredData.value > 4 ? 'Moderate' : 'Low'}
                                 <span className="text-white/40 ml-1 font-normal">({hoveredData.value}/10)</span>
@@ -90,10 +90,10 @@ export default function AttentionFlowScene({ nodes = DEFAULT_NODES, flows = DEFA
             {/* Header Overlay */}
             <div className="absolute top-6 left-6 max-w-xs pointer-events-none">
                 <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-400 mb-2">
-                    Attention Economy
+                    Cultural Flow Monitor
                 </h1>
                 <p className="text-white/50 text-xs">
-                    Hover nodes to isolate flows. Floor topography represents economic value extracted.
+                    Hover nodes to isolate flows. Floor topography represents mindshare concentration.
                 </p>
             </div>
 
